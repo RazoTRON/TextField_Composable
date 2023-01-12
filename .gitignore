@@ -1,0 +1,18 @@
+*.iml
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+/Text Composable/task1/build/
+/Text Composable/task2/build/
+/Text Composable/task3/build/
+/Text Composable/task4/build/
+/Text Composable/task5/build/
