@@ -1,8 +1,8 @@
 type: hyperskill
-title: Text Composable
+title: TextField Composable
 language: English
-summary: Hyperskill lesson "Text Composable"
+summary: Hyperskill lesson "TextField Composable"
 programming_language: Kotlin
 environment: Android
 content:
-- Text Composable
+- TextField Composable
