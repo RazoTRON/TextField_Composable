@@ -28,8 +28,6 @@ files:
   visible: false
 - name: src/main/java/org/hyperskill/textfield/ui/theme/Theme.kt
   visible: false
-- name: src/main/java/org/hyperskill/textfield/Components.kt
-  visible: false
 - name: src/main/java/org/hyperskill/textfield/MainActivity.kt
   visible: true
 - name: src/test/java/org/hyperskill/textfield/Test.kt
@@ -38,3 +36,5 @@ files:
   visible: false
 - name: src/test/resources/robolectric.properties
   visible: false
+- name: src/main/java/org/hyperskill/textfield/components/Text.kt
+  visible: true

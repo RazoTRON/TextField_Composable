@@ -32,11 +32,11 @@ files:
   visible: false
 - name: src/main/res/font/inconsolata.ttf
   visible: true
-- name: src/main/java/org/hyperskill/textfield/Components.kt
-  visible: false
 - name: src/test/java/org/hyperskill/textfield/Test.kt
   visible: false
 - name: src/test/java/org/hyperskill/textfield/internals/AbstractUnitTest.kt
   visible: false
 - name: src/test/resources/robolectric.properties
+  visible: false
+- name: src/main/java/org/hyperskill/textfield/components/Text.kt
   visible: false

@@ -6,12 +6,6 @@ files:
   visible: true
 - name: src/main/res/layout/activity_main.xml
   visible: true
-- name: src/main/res/values/colors.xml
-  visible: true
-- name: src/main/res/values/styles.xml
-  visible: true
-- name: src/main/res/values/strings.xml
-  visible: true
 - name: src/main/res/drawable/ic_launcher_background.xml
   visible: true
 - name: src/main/res/drawable-v24/ic_launcher_foreground.xml
@@ -34,7 +28,7 @@ files:
   visible: false
 - name: src/test/java/org/hyperskill/textfield/internals/AbstractUnitTest.kt
   visible: false
-- name: src/main/java/org/hyperskill/textfield/Components.kt
-  visible: false
 - name: src/test/resources/robolectric.properties
+  visible: false
+- name: src/main/java/org/hyperskill/textfield/components/Text.kt
   visible: false

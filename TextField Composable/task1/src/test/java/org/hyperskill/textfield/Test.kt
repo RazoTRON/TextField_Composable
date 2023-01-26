@@ -2,42 +2,56 @@ package org.hyperskill.textfield
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import org.hyperskill.textfield.components.semStringKey
+import org.hyperskill.textfield.components.semTextFieldValueKey
+import org.hyperskill.textfield.components.semVisualTransformationKey
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
-class MessageTest {
+class PasswordFieldTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Before
+    @Throws(Exception::class)
+    fun setUp() {
+        ShadowLog.stream = System.out // Redirect Logcat to console
+    }
+
     @Test
-    fun testMultiLine() {
+    fun testPasswordField() {
         composeTestRule.setContent {
-            SingleLine("First line\nThis is the second line")
+            PasswordField()
         }
 
-        composeTestRule
-            .onNodeWithText("First line", substring = true, ignoreCase = true)
-            .assert(SemanticsMatcher.expectValue(semMaxLinesKey, 1))
-            .assert(SemanticsMatcher.expectValue(semOverflowKey, TextOverflow.Ellipsis))
-    }
-}
+        composeTestRule.onRoot().printToLog("TEXT_FIELD")
+        setUp()
 
-//@Composable
-//fun SingleLine(text: String) {
-//    Text(
-//        text = text,
-//        maxLines = 1,
-//        overflow = TextOverflow.Ellipsis
-//    )
-//}
-//
-//@Preview
-//@Composable
-//fun PreviewShortLine() {
-//    SingleLine(text = "some txt\nsdkkljkljlkfsd")
-//}
+        composeTestRule.onNodeWithTag("TextField").performClick().performTextClearance()
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semStringKey, "")
+                .or(SemanticsMatcher.expectValue(semTextFieldValueKey, ""))
+            )
+
+        composeTestRule.onNodeWithTag("TextField").performClick().performTextInput("text")
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semStringKey, "")
+                .or(SemanticsMatcher.expectValue(semTextFieldValueKey, ""))
+            )
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semVisualTransformationKey, PasswordVisualTransformation(mask = 'X')))
+
+    }
+
+
+}

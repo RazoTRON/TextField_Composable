@@ -4,20 +4,42 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-// DO NOT import androidx.compose.material.Text
+import org.hyperskill.textfield.components.TextField
+import org.hyperskill.textfield.components.OutlinedTextField
+import org.hyperskill.textfield.ui.theme.HyperskillTheme
+
+// DO NOT import TextField or OutlinedTextField
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            SingleLine("some text")
+            PasswordField()
         }
     }
 }
 
-@Composable
-fun SingleLine(text: String) {
+var value by mutableStateOf("423")
 
+@Composable
+fun PasswordField() {
+    TextField(
+        value,
+        onValueChange = { value = it },
+        visualTransformation = PasswordVisualTransformation(mask = 'X'),
+        singleLine = true,
+    )
+}
+
+@Preview
+@Composable
+fun PasswordFieldPreview() {
+    HyperskillTheme {
+        PasswordField()
+    }
 }

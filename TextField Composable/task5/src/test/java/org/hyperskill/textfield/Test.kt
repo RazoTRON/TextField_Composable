@@ -1,48 +1,61 @@
 package org.hyperskill.textfield
 
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.assert
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
+import org.hyperskill.textfield.components.*
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
-class MessageTest {
+class SearchFieldTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    @Before
+    @Throws(Exception::class)
+    fun setUp() {
+        ShadowLog.stream = System.out // Redirect Logcat to console
+    }
+
     @Test
-    fun testSayMyName() {
+    fun testSearchField() {
         composeTestRule.setContent {
-            SayMyName()
+            BlackTextField()
         }
 
-        val say = AnnotatedString.Range(SpanStyle(color = Color.Black), 0, 3)
-        val my = AnnotatedString.Range(
-            SpanStyle(fontWeight = FontWeight.SemiBold, color = Color.Black),
-            0,
-            2
-        )
-        val name = AnnotatedString.Range(
-            SpanStyle(fontWeight = FontWeight.ExtraBold, color = Color.Red),
-            0,
-            4
-        )
+        composeTestRule.onRoot().printToLog("TEXT_FIELD")
+        setUp()
 
-        composeTestRule
-            .onNodeWithText("say my name", ignoreCase = true)
-            .assert(SemanticsMatcher.expectValue(semAnnotatedString03Key, listOf(say)))
-            .assert(SemanticsMatcher.expectValue(semAnnotatedString46Key, listOf(my)))
-            .assert(SemanticsMatcher.expectValue(semAnnotatedString711Key, listOf(name)))
+        composeTestRule.onNodeWithTag("TextField").performClick().performTextClearance()
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semStringKey, "")
+                .or(SemanticsMatcher.expectValue(semTextFieldValueKey, ""))
+            )
+
+        composeTestRule.onNodeWithTag("TextField").performClick().performTextInput("text")
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semStringKey, "text")
+                .or(SemanticsMatcher.expectValue(semTextFieldValueKey, "text"))
+            )
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semTextFieldColorsContainerKey, Color.Black))
+
+        composeTestRule.onNodeWithTag("TextField")
+            .assert(SemanticsMatcher.expectValue(semTextFieldColorsTextKey, Color.White))
+
     }
+
+
 }
 //@Composable
 //fun SayMyName() {
