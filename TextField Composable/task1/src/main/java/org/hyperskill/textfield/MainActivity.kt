@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-var value by mutableStateOf("423")
+var value by mutableStateOf("Password")
 
 @Composable
 fun PasswordField() {
