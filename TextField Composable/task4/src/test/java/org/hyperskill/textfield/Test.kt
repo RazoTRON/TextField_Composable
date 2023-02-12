@@ -2,6 +2,7 @@ package org.hyperskill.textfield
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import org.hyperskill.textfield.components.semIsErrorKey
 import org.hyperskill.textfield.components.semPlaceholderKey
 import org.hyperskill.textfield.components.semStringKey
 import org.hyperskill.textfield.components.semTextFieldValueKey
@@ -13,7 +14,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.shadows.ShadowLog
 
 @RunWith(RobolectricTestRunner::class)
-class SearchPasswordField {
+class PasswordFieldTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -46,17 +47,30 @@ class SearchPasswordField {
         composeTestRule.onNodeWithTag("TextField", useUnmergedTree = true)
             .assert(
                 SemanticsMatcher.expectValue(semStringKey, "")
-                    .or(SemanticsMatcher.expectValue(semTextFieldValueKey, ""))
+                        or
+                        SemanticsMatcher.expectValue(semTextFieldValueKey, "")
             )
 
         composeTestRule.onNodeWithTag("TextField", useUnmergedTree = true).performClick()
-            .performTextInput("text")
+            .performTextInput("pass")
 
         composeTestRule.onNodeWithTag("TextField", useUnmergedTree = true)
             .assert(
-                SemanticsMatcher.expectValue(semStringKey, "text")
-                    .or(SemanticsMatcher.expectValue(semTextFieldValueKey, "text"))
+                SemanticsMatcher.expectValue(semStringKey, "pass")
+                        or
+                        SemanticsMatcher.expectValue(semTextFieldValueKey, "pass")
             )
+
+        composeTestRule.onNodeWithTag("TextField").assert(
+            SemanticsMatcher.expectValue(semIsErrorKey, true)
+        )
+
+        composeTestRule.onNodeWithTag("TextField", useUnmergedTree = true).performClick()
+            .performTextInput("word")
+
+        composeTestRule.onNodeWithTag("TextField").assert(
+            SemanticsMatcher.expectValue(semIsErrorKey, false)
+        )
 
 
     }
